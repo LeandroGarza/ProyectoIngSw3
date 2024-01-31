@@ -16,9 +16,10 @@ jobs:
       - name: Build and run 
         run: |
            docker compose up -d
-
+      
       - name: Test unitario 
         run: |        
+           chmod +x ./node_modules/.bin/jest
            npm test
         
         working-directory: ./web
