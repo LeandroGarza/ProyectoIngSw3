@@ -23,8 +23,10 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install 
+        working-directory: ./web
 
       - name: Run local unit tests
         run: npm test
+        working-directory: ./web
   
