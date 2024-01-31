@@ -16,3 +16,10 @@ jobs:
       - name: Build and run 
         run: |
            docker compose up -d
+
+      - name: Test unitario 
+        run: |        
+           npm test
+        
+        working-directory: ./web
+  
