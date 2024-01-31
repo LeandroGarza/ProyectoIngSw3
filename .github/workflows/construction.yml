@@ -17,10 +17,14 @@ jobs:
         run: |
            docker compose up -d
       
-      - name: Test unitario 
-        run: |        
-           chmod +x ./node_modules/.bin/jest
-           npm test
-        
-        working-directory: ./web
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run local unit tests
+        run: npm test
   
