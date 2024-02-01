@@ -9,14 +9,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      database:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      backend:
+        image: proyecto-backend  # Update with the actual image name or build context
+        ports:
+          - 3000:3000
+        options: --health-cmd="curl -f http://backend:3000/health" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      frontend:
+        image: proyecto-frontend  # Update with the actual image name or build context
+        ports:
+          - 8080:8080
+        options: --health-cmd="curl -f http://frontend:8080/health" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Build and run 
-        run: |
-           docker compose up -d
-           
+        run: docker-compose up -d
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -29,20 +49,18 @@ jobs:
       - name: Run local unit tests
         run: npm test
         working-directory: ./web
-        
+
       - name: Wait for services to be ready
-        run: docker compose exec -T proyecto-backend wait-for-it proyecto-backend:80 -t 120
+        run: docker-compose exec -T backend wait-for-it backend:3000 -t 120
 
       - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.USUARIO}} -p ${{ secrets.CONTRA }}
+        run: docker login -u ${{ secrets.USUARIO }} -p ${{ secrets.CONTRA }}
       
       - name: Tag and push to Hub
         run: |
-          docker tag proyecto-backend ${{ secrets.USUARIO }}/proyecto-backend
-          docker tag proyecto-frontend ${{ secrets.USUARIO }}/proyecto-frontend
-          docker tag proyecto-database ${{ secrets.USUARIO }}/proyecto-database
+          docker tag backend ${{ secrets.USUARIO }}/proyecto-backend
+          docker tag frontend ${{ secrets.USUARIO }}/proyecto-frontend
 
           docker push ${{ secrets.USUARIO }}/proyecto-backend
           docker push ${{ secrets.USUARIO }}/proyecto-frontend
-          docker push ${{ secrets.USUARIO }}/proyecto-database
 
