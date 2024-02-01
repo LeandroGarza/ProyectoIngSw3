@@ -32,4 +32,14 @@ jobs:
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.USUARIO}} -p ${{ secrets.CONTRA }}
+
+      - name: tagear y push a hub
+        run: |
+          docker tag proyecto-backend:latest ${{ secrets.USUARIO }}/proyecto-backend:latest
+          docker tag proyecto-frontend:latest ${{ secrets.USUARIO }}/proyecto-frontend:latest
+          docker tag proyecto-database ${{ secrets.USUARIO }}/proyecto-database
+
+          docker push ${{ secrets.USUARIO }}/proyecto-backend:latest
+          docker push ${{ secrets.USUARIO }}/proyecto-frontend:latest
+          docker push ${{ secrets.USUARIO }}/proyecto-database
   
