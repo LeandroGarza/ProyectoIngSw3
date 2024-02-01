@@ -35,6 +35,22 @@ jobs:
           docker tag backend ${{ secrets.USUARIO }}/backend &&
           docker push ${{ secrets.USUARIO }}/backend
 
+      - name: tag push frontend
+        working-directory: ./web  
+        run: |
+          docker build -t frontend . &&
+          docker tag frontend ${{ secrets.USUARIO }}/frontend &&
+          docker push ${{ secrets.USUARIO }}/frontend
+
+      - name: tag push database
+        working-directory: ./Db 
+        run: |
+          docker build -t database . &&
+          docker tag database ${{ secrets.USUARIO }}/database &&
+          docker push ${{ secrets.USUARIO }}/database
+
+
+
              
      
 
