@@ -1,53 +1,53 @@
-const formElement = document.getElementById("saveTransaction");
+// script.js
 
-formElement.addEventListener("submit", (event) => {
-    event.preventDefault();
+// Definir la función sumLastThreePrices fuera del evento DOMContentLoaded
+function sumLastThreePrices(prices) {
+    console.log('Iniciando la suma de los últimos tres precios:', prices);
 
-    let TransactionDescription = document.getElementById("TransactionDescription").value.trim();
-    let TransactionPrice = document.getElementById("TransactionPrice").value.trim();
+    const sum = prices.reduce((acc, transaction) => acc + parseFloat(transaction.price), 0);
 
-    // Verificar que los campos no estén vacíos
-    if (TransactionDescription === "" || TransactionPrice === "") {
-        console.log("Por favor, complete todos los campos.");
-        return;
+    console.log('Suma de los últimos tres precios:', sum);
+
+    // Mostrar la suma en el elemento con id 'sumDisplay'
+    const sumDisplay = document.getElementById('sumDisplay');
+
+    if (sumDisplay) {
+        sumDisplay.textContent = `Suma de los últimos tres precios: ${sum}`;
+        // Puedes hacer algo más con la suma si es necesario
+        console.log('Finalizando la operación.');
+    } else {
+        console.error('Elemento con ID "sumDisplay" no encontrado.');
+    }
+    return sum;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const formElement = document.getElementById("saveTransaction");
+
+    if (formElement) {
+        formElement.addEventListener("submit", (event) => {
+            // ... (resto del código)
+        });
+    } else {
+        console.error('Elemento con ID "saveTransaction" no encontrado.');
     }
 
-    let transaction = {
-        description: TransactionDescription,
-        price: TransactionPrice
-    };
-    
-    let transactionJson = JSON.stringify(transaction);
-
-    console.log("Datos a enviar:", transaction);
-
-    fetch('http://localhost:3000/transactions', {
-        method: 'POST',
-        body: transactionJson,
-        headers: {
-            'Content-Type': 'application/json' // Asegúrate de establecer el encabezado Content-Type
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // La transacción se ha guardado correctamente, puedes hacer algo con la respuesta si es necesario
-        console.log(data);
-    })
-    .catch(error => console.error('Error:', error));
+    // Al cargar la página, obtener las transacciones existentes
+    fetch('http://localhost:3000/transactions')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Llamar a la función de suma con los datos iniciales
+            sumLastThreePrices(data);
+        })
+        .catch(error => console.error('Error:', error));
 });
 
-// Al cargar la página, obtener las transacciones existentes
-fetch('http://localhost:3000/transactions')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
+// Exportar la función para que esté disponible en las pruebas
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = { sumLastThreePrices };
+}
