@@ -35,11 +35,11 @@ jobs:
 
       - name: tagear y push a hub
         run: |
-          docker tag proyecto-backend:latest ${{ secrets.USUARIO }}/proyecto-backend:latest
-          docker tag proyecto-frontend:latest ${{ secrets.USUARIO }}/proyecto-frontend:latest
+          docker tag proyecto-backend ${{ secrets.USUARIO }}/proyecto-backend
+          docker tag proyecto-frontend ${{ secrets.USUARIO }}/proyecto-frontend
           docker tag proyecto-database ${{ secrets.USUARIO }}/proyecto-database
 
-          docker push ${{ secrets.USUARIO }}/proyecto-backend:latest
-          docker push ${{ secrets.USUARIO }}/proyecto-frontend:latest
+          docker push ${{ secrets.USUARIO }}/proyecto-backend
+          docker push ${{ secrets.USUARIO }}/proyecto-frontend
           docker push ${{ secrets.USUARIO }}/proyecto-database
   
