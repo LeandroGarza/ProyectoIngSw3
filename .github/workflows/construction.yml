@@ -16,7 +16,7 @@ jobs:
       - name: Build and run 
         run: |
            docker compose up -d
-      
+           
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -30,13 +30,13 @@ jobs:
         run: npm test
         working-directory: ./web
         
-      - name: esperar
-        run: sleep 30
-        
+      - name: Wait for services to be ready
+        run: docker compose exec -T proyecto-backend wait-for-it proyecto-backend:80 -t 120
+
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.USUARIO}} -p ${{ secrets.CONTRA }}
       
-      - name: tagear y push a hub
+      - name: Tag and push to Hub
         run: |
           docker tag proyecto-backend ${{ secrets.USUARIO }}/proyecto-backend
           docker tag proyecto-frontend ${{ secrets.USUARIO }}/proyecto-frontend
@@ -45,4 +45,4 @@ jobs:
           docker push ${{ secrets.USUARIO }}/proyecto-backend
           docker push ${{ secrets.USUARIO }}/proyecto-frontend
           docker push ${{ secrets.USUARIO }}/proyecto-database
-  
+
