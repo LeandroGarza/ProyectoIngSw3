@@ -1,0 +1,32 @@
+name: Construyendo App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and run 
+        run: |
+           docker compose up -d
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install 
+        working-directory: ./web
+
+      - name: Run local unit tests
+        run: npm test
+        working-directory: ./web
+  
