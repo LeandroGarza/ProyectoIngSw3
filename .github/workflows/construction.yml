@@ -31,7 +31,7 @@ jobs:
         working-directory: ./web
         
       - name: esperar
-        run: sleep 30
+        run: sleep 50
         
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.USUARIO}} -p ${{ secrets.CONTRA }}
