@@ -29,10 +29,13 @@ jobs:
       - name: Run local unit tests
         run: npm test
         working-directory: ./web
-
+        
+      - name: esperar
+        run: sleep 30
+        
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.USUARIO}} -p ${{ secrets.CONTRA }}
-
+      
       - name: tagear y push a hub
         run: |
           docker tag proyecto-backend ${{ secrets.USUARIO }}/proyecto-backend
