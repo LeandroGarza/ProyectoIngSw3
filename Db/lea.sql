@@ -8,6 +8,6 @@ CREATE TABLE transactions (
 
 -- Insertar algunas transacciones de ejemplo
 INSERT INTO transactions (description, price) VALUES
-('Compra de alimentos', 50.00),
-('Pago de factura', 30.00),
-('Ingreso de salario', 1000.00);
+('Motul 5100', 3),
+('Elf evolution Vpower', 8),
+('Total semi-sintetico', 6);
