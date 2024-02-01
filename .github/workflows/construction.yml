@@ -30,7 +30,7 @@ jobs:
         
       - name: tag push backend
         working-directory: ./api  
-        run: docker build -t backend .
+        run: docker buildx build -t backend .
              docker tag backend ${{ secrets.USUARIO }}/backend
              docker push ${{ secrets.USUARIO }}/backend
              
