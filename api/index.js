@@ -69,6 +69,6 @@ app.post('/transactions', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Me ejecuto en http://localhost:${port}`);
+    console.log(`Me ejecuto en ${port}`);
 });
 

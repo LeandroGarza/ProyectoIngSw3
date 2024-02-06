@@ -11,9 +11,6 @@ COPY index.js .
 # Instala las dependencias
 RUN npm install
 
-# Exponer el puerto en el que se ejecuta la aplicación
-EXPOSE 3000
-
 # Comando para ejecutar la aplicación
 # CMD ["node", "index.js"]
 CMD ["sh", "-c", "sleep 25 && node index.js"]
