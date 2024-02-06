@@ -67,8 +67,8 @@ app.post('/transactions', async (req, res) => {
     }
 });
 
-const port = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, () => {
-    console.log(`Me ejecuto en ${port}`);
+app.listen(PORT, () => {
+    console.log(`Me ejecuto en ${PORT}`);
 });
