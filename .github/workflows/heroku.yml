@@ -36,3 +36,19 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.CLAVE_HEROKU }}
         run: heroku ps:scale web=1 -a backending
+
+      - name: Build and push FRONTEND
+        working-directory: ./web
+        run: |
+          docker build -t front .
+          docker tag front registry.heroku.com/frontending/web
+          docker push registry.heroku.com/frontending/web
+      - name: Release to Heroku FRONTEND
+        env:
+          HEROKU_API_KEY: ${{ secrets.CLAVE_HEROKU }}
+        run: heroku container:release web -a frontending
+        
+      - name: Activate Deployment on Heroku FRONTEND
+        env:
+          HEROKU_API_KEY: ${{ secrets.CLAVE_HEROKU }}
+        run: heroku ps:scale web=1 -a frontending
