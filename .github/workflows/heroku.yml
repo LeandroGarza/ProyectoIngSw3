@@ -1,0 +1,21 @@
+name: Deployando en heroku
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Heroku Container Registry
+        run: echo ${{ secrets.CLAVE_HEROKU }} | docker login -u=_ --password-stdin registry.heroku.com
+
+      - name: Configure Heroku CLI
+        run: |
+          echo -e "machine api.heroku.com\n  login $MAIL_HEROKU\n  password $CLAVE_HEROKU\nmachine git.heroku.com\n  login $MAIL_HEROKU\n  password $CLAVE_HEROKU" > ~/.netrc
