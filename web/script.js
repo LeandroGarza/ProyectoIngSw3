@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log("Datos a enviar:", transaction);
 
-            fetch('http://localhost:3000/transactions', {
+            fetch('https://backending-e20546d70e3d.herokuapp.com/transactions', {
                 method: 'POST',
                 body: transactionJson,
                 headers: {
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(data);
 
                 // Llamar a la función de suma con los datos actualizados
-                fetch('http://localhost:3000/transactions')
+                fetch('https://backending-e20546d70e3d.herokuapp.com/transactions')
                     .then(response => {
                         if (!response.ok) {
                             throw new Error(`Error en la solicitud: ${response.status}`);
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Al cargar la página, obtener las transacciones existentes
-    fetch('http://localhost:3000/transactions')
+    fetch('https://backending-e20546d70e3d.herokuapp.com/transactions')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error en la solicitud: ${response.status}`);
