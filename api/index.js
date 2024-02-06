@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const { createPool } = require('mysql2/promise');
 const app = express();
-const port = 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -68,7 +67,10 @@ app.post('/transactions', async (req, res) => {
     }
 });
 
+const port = process.env.port || 3000;
+
 app.listen(port, () => {
     console.log(`Me ejecuto en ${port}`);
 });
 
+export default app;
