@@ -2,18 +2,10 @@ import http.server
 import socketserver
 import os
 
-# Puerto en el que se ejecutará el servidor
-PORT = 8080
+PORT = int(os.environ.get('PORT', 8080))  # Obtener el puerto de la variable de entorno PORT o usar 8080 por defecto
 
-# Directorio que se servirá
-# DIRECTORY = '/app'
-
-# Configuración del manejador de solicitudes
 Handler = http.server.SimpleHTTPRequestHandler
 
-
-# Crear el servidor
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    print(f"Servidor en el puerto {PORT}")
-    # Iniciar el servidor
+    print("Servidor web en el puerto:", PORT)
     httpd.serve_forever()
