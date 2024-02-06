@@ -19,3 +19,20 @@ jobs:
       - name: Configure Heroku CLI
         run: |
           echo -e "machine api.heroku.com\n  login $MAIL_HEROKU\n  password $CLAVE_HEROKU\nmachine git.heroku.com\n  login $MAIL_HEROKU\n  password $CLAVE_HEROKU" > ~/.netrc
+
+      - name: Build and push BACKEND
+        working-directory: ./api 
+        run: |
+          docker build -t backing .
+          docker tag backing registry.heroku.com/backending/web
+          docker push registry.heroku.com/backending/web
+          
+      - name: Release to Heroku BACKEND
+        env:
+          HEROKU_API_KEY: ${{ secrets.CLAVE_HEROKU }}
+        run: heroku container:release web -a backending
+        
+      - name: Activate Deployment on Heroku BACKEND
+        env:
+          HEROKU_API_KEY: ${{ secrets.CLAVE_HEROKU }}
+        run: heroku ps:scale web=1 -a backending
