@@ -1,4 +1,3 @@
-# Utiliza una imagen de Python para construir el contenedor
 FROM python:3.9-slim
 
 # Establece el directorio de trabajo en /app

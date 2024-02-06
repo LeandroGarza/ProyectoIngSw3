@@ -1,4 +1,3 @@
-// Definir la función sumLastThreePrices fuera del evento DOMContentLoaded
 function sumLastThreePrices(prices) {
     console.log('Iniciando la suma de los últimos tres precios:', prices);
 
@@ -8,12 +7,10 @@ function sumLastThreePrices(prices) {
 
     console.log('Suma de los últimos tres precios:', sum);
 
-    // Mostrar la suma en el elemento con id 'sumDisplay'
     const sumDisplay = document.getElementById('sumDisplay');
 
     if (sumDisplay) {
         sumDisplay.textContent = `Suma de los últimos tres precios: ${sum}`;
-        // Puedes hacer algo más con la suma si es necesario
         console.log('Finalizando la operación.');
     } else {
         console.error('Elemento con ID "sumDisplay" no encontrado.');
@@ -32,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let TransactionDescription = document.getElementById("TransactionDescription").value.trim();
             let TransactionPrice = document.getElementById("TransactionPrice").value.trim();
 
-            // Verificar que los campos no estén vacíos
             if (TransactionDescription === "" || TransactionPrice === "") {
                 console.log("Por favor, complete todos los campos.");
                 return;
@@ -61,10 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                // La transacción se ha guardado correctamente, puedes hacer algo con la respuesta si es necesario
                 console.log(data);
 
-                // Llamar a la función de suma con los datos actualizados
                 fetch('https://backending-e20546d70e3d.herokuapp.com/transactions')
                     .then(response => {
                         if (!response.ok) {
@@ -93,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            // Llamar a la función de suma con los datos iniciales
             sumLastThreePrices(data);
         })
         .catch(error => console.error('Error:', error));
