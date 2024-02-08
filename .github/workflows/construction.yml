@@ -25,31 +25,11 @@ jobs:
         run: npm test
         working-directory: ./web
 
-      - name: Install CodeceptJS
-        run: npm install codeceptjs@3.5.13-beta.3
-
-      - name: Update Dependencies
-        run: npm update
-
-      - name: Install Dependencies
-        working-directory: ./testIntegracion
-        run: |
-          npm install
-          npx playwright install
-
-      - name: Diagnose Environment
-        working-directory: ./testIntegracion
-        run: |
-          node --version
-          npm --version
-          npm ls
-
       - name: Run integration test
         working-directory: ./testIntegracion
         run: |
           npx codeceptjs run 
 
-    
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.USUARIO}} -p ${{ secrets.CONTRA }}
         
