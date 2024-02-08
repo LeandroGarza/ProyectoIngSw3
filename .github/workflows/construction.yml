@@ -35,6 +35,7 @@ jobs:
         working-directory: ./testIntegracion
         run: |
           npm install
+          npx playwright install
 
       - name: Diagnose Environment
         working-directory: ./testIntegracion
