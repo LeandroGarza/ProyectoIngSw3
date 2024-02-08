@@ -14,7 +14,7 @@ exports.config = {
     Playwright: {
       browser: 'chromium',
       url: 'https://frontending-2a5106696ee9.herokuapp.com/',
-      show: true
+      show: false
     }
   },
   include: {
