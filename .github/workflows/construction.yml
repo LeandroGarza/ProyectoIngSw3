@@ -26,8 +26,10 @@ jobs:
         working-directory: ./web
 
       - name: Run integration test
-        run: npx codeceptjs run
         working-directory: ./testIntegracion
+        run: |
+          npx codeceptjs run
+        
               
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.USUARIO}} -p ${{ secrets.CONTRA }}
